@@ -2,4 +2,4 @@
 
 APP_ID = "ch.homejj.BetterActivityMonitor"
 APP_NAME = "Better Activity Monitor"
-VERSION = "0.1.0"
+VERSION = "0.1.1"

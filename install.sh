@@ -11,9 +11,17 @@ BIN="$PREFIX/bin/better-activity-monitor"
 DESKTOP="$PREFIX/share/applications/$APP_ID.desktop"
 ICON="$PREFIX/share/icons/hicolor/512x512/apps/$APP_ID.png"
 
+# A hicolor icon-theme.cache that predates the icon hides it from GTK and the shell.
+refresh_icon_cache() {
+    if [ -f "$PREFIX/share/icons/hicolor/icon-theme.cache" ] && command -v gtk-update-icon-cache >/dev/null 2>&1; then
+        gtk-update-icon-cache -q -f -t "$PREFIX/share/icons/hicolor" || true
+    fi
+}
+
 if [ "${1:-}" = "--uninstall" ]; then
     rm -rf "$LIB"
     rm -f "$BIN" "$DESKTOP" "$ICON"
+    refresh_icon_cache
     echo "Removed Better Activity Monitor from $PREFIX"
     exit 0
 fi
@@ -52,6 +60,7 @@ StartupNotify=true
 StartupWMClass=$APP_ID
 EOF
 cp "$SRC/better_activity_monitor/data/icons/$APP_ID.png" "$ICON"
+refresh_icon_cache
 
 if command -v update-desktop-database >/dev/null 2>&1; then
     update-desktop-database -q "$PREFIX/share/applications" || true

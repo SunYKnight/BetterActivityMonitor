@@ -142,7 +142,8 @@ class MainWindow(Adw.ApplicationWindow):
     def _on_about(self, *_args) -> None:
         Adw.AboutDialog(
             application_name=APP_NAME, application_icon=APP_ID, version=VERSION,
-            comments="Hardware overview with live statistics and history charts.",
+            comments="Lists the PC's hardware with live temperatures and fans, and charts processor, memory, storage, "
+                     "graphics, network and sensors with up to an hour of history.",
         ).present(self)
 
     def _on_style(self, toggles: Adw.ToggleGroup, _param) -> None:
