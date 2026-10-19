@@ -1,6 +1,6 @@
 [project]
 name = "better-activity-monitor"
-version = "0.1.0"
+version = "0.1.1"
 description = "Lightweight GTK4/libadwaita system monitor: hardware overview, live stats and history charts"
 requires-python = ">=3.11"
 # PyGObject, GTK 4 and libadwaita come from the distribution (python3-gobject, typelib-1_0-Adw-1).
