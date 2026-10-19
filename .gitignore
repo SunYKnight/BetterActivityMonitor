@@ -1,0 +1,15 @@
+# build output
+__pycache__/
+*.pyc
+build/
+dist/
+*.egg-info/
+
+# local environments
+.venv/
+*.local
+
+# editors / OS
+.vscode/
+.idea/
+.DS_Store

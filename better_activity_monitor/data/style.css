@@ -1,0 +1,64 @@
+.tile {
+  padding: 12px 16px;
+  min-width: 110px;
+}
+
+.tile-caption {
+  font-size: 0.85em;
+  font-weight: 600;
+  opacity: 0.7;
+}
+
+.tile-value {
+  font-size: 1.6em;
+  font-weight: 800;
+}
+
+.tile-sub {
+  font-size: 0.85em;
+  opacity: 0.7;
+}
+
+.chart-card {
+  padding: 14px 16px;
+}
+
+.mini-value {
+  font-weight: 700;
+}
+
+.numeric {
+  font-feature-settings: "tnum";
+}
+
+.legend-item {
+  padding: 2px 8px;
+  min-height: 24px;
+  font-size: 0.9em;
+}
+
+.legend-item.off {
+  opacity: 0.35;
+}
+
+.state-pill {
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-size: 0.85em;
+  font-weight: 700;
+  background-color: alpha(currentColor, 0.1);
+}
+
+.state-pill.up {
+  color: var(--success-color);
+  background-color: color-mix(in srgb, var(--success-bg-color) 20%, transparent);
+}
+
+.pin:not(:checked) {
+  opacity: 0.3;
+}
+
+.pin:checked {
+  color: var(--accent-color);
+  background: none;
+}

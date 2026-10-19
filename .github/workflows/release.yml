@@ -1,0 +1,37 @@
+name: Release
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v7
+      - name: Publish the GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          version="$(sed -n 's/^version = "\(.*\)"$/\1/p' pyproject.toml)"
+          tag="v$version"
+          if [ "$GITHUB_REF_NAME" != "$tag" ]; then
+            echo "::error::The tag $GITHUB_REF_NAME does not match the version $version in pyproject.toml"
+            exit 1
+          fi
+          if ! grep -qx "VERSION = \"$version\"" better_activity_monitor/__init__.py; then
+            echo "::error::better_activity_monitor/__init__.py does not have VERSION = \"$version\""
+            exit 1
+          fi
+          # The changelog section of this version, without its heading, becomes the release notes.
+          awk -v h="## $version" '$0 == h {on = 1; next} /^## / {on = 0} on' CHANGELOG.md > "$RUNNER_TEMP/notes.md"
+          if [ ! -s "$RUNNER_TEMP/notes.md" ]; then
+            echo "::error::CHANGELOG.md has no section ## $version"
+            exit 1
+          fi
+          gh release create "$tag" --target "$GITHUB_SHA" --title "Better Activity Monitor $version" \
+            --notes-file "$RUNNER_TEMP/notes.md"

@@ -1,0 +1,22 @@
+name: CI
+
+on:
+  push:
+    branches: [develop, main]
+  pull_request:
+    branches: [develop, main]
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v7
+      # The oldest supported Python catches syntax only newer versions accept.
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
+      - run: python -m compileall -q better_activity_monitor
+      - run: sh -n install.sh
